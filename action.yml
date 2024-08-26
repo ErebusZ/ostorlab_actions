@@ -30,10 +30,8 @@ inputs:
 
 outputs:
   scan_id:
-    value: -1
     description: id of the created scan.
   status:
-    value: unknown
     description: status of scan.
 runs:
   using: "composite"
