@@ -23,15 +23,17 @@ inputs:
   max_wait_minutes:
     description: Specifies the maximum number of minutes to wait for scan results.
     required: false
-    default: 20
+    default: "20"
   extra:
     description: Extra args to be passed to Ostorlab CLI to create a scan, common case is setting test credentials.
     required: false
 
 outputs:
   scan_id:
+    value: "0"
     description: id of the created scan.
   status:
+    value: "unknown"
     description: status of scan.
 runs:
   using: "composite"
@@ -45,12 +47,11 @@ runs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install ostorlab
-      shell: bash
+      shell: sh
 
     - name: Run Scan
-      run: ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" \
-        --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
-      shell: bash
+      run: ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
+      shell: sh
       env:
         $INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
         $INPUT_SCAN_TITLE: ${{ inputs.scan_title }}
