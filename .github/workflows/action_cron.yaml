@@ -1,7 +1,5 @@
 on:
-  schedule:
-    # Run at 01:00 on Saturday.
-    - cron: '0 1 * * SAT'
+  workflow_dispatch:
 
 jobs:
   ostorlab_test:
