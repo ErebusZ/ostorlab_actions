@@ -30,10 +30,10 @@ inputs:
 
 outputs:
   scan_id:
-    value: 0
+    value: -1
     description: id of the created scan.
   status:
-    value: "unknown"
+    value: unknown
     description: status of scan.
 runs:
   using: "composite"
@@ -50,7 +50,7 @@ runs:
       shell: sh
 
     - name: Run Scan
-      run: ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
+      run: ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes=$INPUT_MAX_WAIT_MINUTES $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
       shell: sh
       env:
         $INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
