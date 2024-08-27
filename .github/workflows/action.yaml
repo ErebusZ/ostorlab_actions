@@ -18,4 +18,4 @@ jobs:
           scan_title: title_scan_ci # type a title for your scan.
           ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
       - name: Get scan id
-        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
+        run: echo $SCAN_ID
