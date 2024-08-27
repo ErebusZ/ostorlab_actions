@@ -28,11 +28,6 @@ inputs:
     description: Extra args to be passed to Ostorlab CLI to create a scan, common case is setting test credentials.
     required: false
 
-outputs:
-  scan_id:
-    description: id of the created scan.
-  status:
-    description: status of scan.
 runs:
   using: "composite"
   steps:
@@ -50,6 +45,8 @@ runs:
     - name: Run Scan
       run: |
         ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE"  --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
+        scan_id=$(echo "$scan_result" | grep 'Scan created with id ' | awk '{print $5}')
+        echo "SCAN_ID=$scan_id" >> $GITHUB_ENV
       shell: bash
       env:
         INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
