@@ -45,13 +45,13 @@ runs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install ostorlab
-      shell: sh
+      shell: bash
 
     - name: Run Scan
       run: |
         echo $INPUT_OSTORLAB_API_KEY $INPUT_SCAN_TITLE $INPUT_SCAN_PROFILE $INPUT_BREAK_ON_RISK_RATING 
-        ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA android-apk $INPUT_TARGET
-      shell: sh
+        ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
+      shell: bash
       env:
         $INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
         $INPUT_SCAN_TITLE: ${{ inputs.scan_title }}
